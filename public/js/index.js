@@ -20,15 +20,14 @@ function startGame() {
   prevTries = [];
   randomAnswer = answer[Math.floor(Math.random() * answer.length)].split('')
   console.log(randomAnswer)
-  state = [].concat(randomAnswer).fill('_')
+  state = [].concat(randomAnswer).fill('_');
   console.log(state)
   correctGuesses = [];
-  playSpace.textContent = correctGuesses;
+  playSpace.textContent = state;
   // hintArea.textContent = hints[i]
   tries.textContent = triesCounter;
   prevTriesSpan.textContent = '';
   resultDiv.textContent = 'Pick a letter!'
-
 }
 
 function answerLines() {
@@ -37,7 +36,7 @@ function answerLines() {
 }
 
 function isValidGuess(guess) {
-  return guess && !prevTries.includes(guess);
+  return guess && !prevTries.includes(guess); // consider adding guess.length === 1
 }
 
 function changeLives() {
@@ -46,7 +45,22 @@ function changeLives() {
   prevTriesSpan.textContent = prevTries.join(', ');
 }
 
+// BJ says - Look at while loop  -> while the index of the guess is greater than or equal to zero,
+//go through and compare it to the index of the state. when it matches, stop
+// While loop -> define your variable outside of the loop - while x = 0 (and it’ll change immediately)
+// Could swap your state array with your answer array
 
+// i = 0
+// compare randomAnswer.indexOf(guess) to state.indexOf(i)
+// do they match?
+//   Yes, STOP
+//   No, i++ and try again
+// Compare again until a match is found
+
+// Once match is found - need to SWITCH the value of randomAnswer.indexOf(guess) with the corresponding state.indexOf(i)
+// you could SPLICE
+
+// splice: index of your guess, one element, and your guess itself
 
 
 // Event Listener aka ~THE GAME~
@@ -59,9 +73,12 @@ form.addEventListener('submit', function(event) {
 
     if (randomAnswer.indexOf(guess) >= 0) {
       correctGuesses.push(guess); // add to the correct guesses array
-      playSpace.textContent = correctGuesses.join(' ');
+      // playSpace.textContent = correctGuesses.join(' ');
+      state.splice(randomAnswer.indexOf(guess), 1, guess);
       console.log('Correct guesses: '+ correctGuesses) // show the array
       console.log('Index of the correct guess within answer word: ' + randomAnswer.indexOf(guess)) // this is correct, need to use that to add it to the array in the right order
+      console.log(state)
+      playSpace.textContent = state
     } else if (randomAnswer.indexOf(guess) === -1 && triesCounter > 1) {
       resultDiv.textContent = 'Try another letter!';
       prevTries.push(guess); //add to list of letters tried
