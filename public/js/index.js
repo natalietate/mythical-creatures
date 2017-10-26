@@ -7,25 +7,29 @@ const restartBtn = document.getElementById('restart');
 const hintArea = document.getElementById('hint');
 const playSpace = document.getElementById('play-space');
 
+hintArea.addEventListener('click', function(){hintArea.textContent = hint})
+restartBtn.addEventListener('click', startGame);
+
 // Game Data //
 let answer = ['mermaid', 'bigfoot', 'unicorn', 'dragon', 'centaur', 'wizard']
 let hints = ['Lives in water has no feet', 'has large feet', 'one horn', 'breathes fire', 'half man', 'uses a wand']
-
-let guesses, triesCounter, prevTries, hint, correctGuesses
-// i = 0
-
+let guesses, triesCounter, prevTries, hint, correctGuesses, numberPicker
 
 // Game Logic //
 function startGame() {
   triesCounter = 5;
   prevTries = [];
-  randomAnswer = answer[Math.floor(Math.random() * answer.length)].split('')
+
+// This is where we select the answer and corresponding hint!
+  numberPicker = Math.floor(Math.random() * answer.length)
+  randomAnswer = answer[numberPicker].split('')
+  hint = hints[numberPicker]
+
   console.log(randomAnswer)
   state = [].concat(randomAnswer).fill('_');
   console.log(state)
   correctGuesses = [];
   playSpace.textContent = state;
-  hintArea.textContent = hints[Math.floor(Math.random())]
   tries.textContent = triesCounter;
   prevTriesSpan.textContent = '';
   resultDiv.textContent = 'Pick a letter!'
@@ -81,16 +85,15 @@ form.addEventListener('submit', function(event) {
       playSpace.textContent = state.join(' ') // update with the matching letters found
       checkWin(state)
 
-      // need to check agains the random answer to see if the arrays are equal -- if they are, you win!
-
     } else if (randomAnswer.indexOf(guess) === -1 && triesCounter > 1) {
       resultDiv.textContent = 'Try another letter!';
       prevTries.push(guess); //add to list of letters tried
       console.log(prevTries);
       changeLives();
     } else if (randomAnswer.indexOf(guess) === -1 && triesCounter === 1) {
-      resultDiv.textContent = 'You lose!';
       changeLives();
+      resultDiv.textContent = 'You lose!';
+      restartBtn.classList.remove('hidden');
     }
   } else {
     resultDiv.textContent = 'Input must be a single letter and you must not have already guessed it!'
@@ -98,5 +101,6 @@ form.addEventListener('submit', function(event) {
 
   form.guess.value = '';
 });
+
 
 startGame();
