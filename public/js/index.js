@@ -36,7 +36,7 @@ function answerLines() {
 }
 
 function isValidGuess(guess) {
-  return guess && !prevTries.includes(guess); // consider adding guess.length === 1
+  return guess && guess.length === 1 && !prevTries.includes(guess); // consider adding guess.length === 1
 }
 
 function changeLives() {
@@ -45,7 +45,15 @@ function changeLives() {
   prevTriesSpan.textContent = prevTries.join(', ');
 }
 
-// BJ says - Look at while loop  -> while the index of the guess is greater than or equal to zero,
+function checkWin(randomAnswer, state) {
+  for (var i = 0, len = randomAnswer.length; i < len; i++) {
+    if (randomAnswer[i] !== state[i]){
+      console.log(false)
+    }
+  }
+}
+
+// Look at while loop  -> while the index of the guess is greater than or equal to zero,
 //go through and compare it to the index of the state. when it matches, stop
 // While loop -> define your variable outside of the loop - while x = 0 (and it’ll change immediately)
 // Could swap your state array with your answer array
@@ -57,10 +65,10 @@ function changeLives() {
 //   No, i++ and try again
 // Compare again until a match is found
 
+
 // Once match is found - need to SWITCH the value of randomAnswer.indexOf(guess) with the corresponding state.indexOf(i)
 // you could SPLICE
-
-// splice: index of your guess, one element, and your guess itself
+// to splice: index of your guess, one element, and your guess itself
 
 
 // Event Listener aka ~THE GAME~
@@ -69,16 +77,25 @@ form.addEventListener('submit', function(event) {
   const guess = form.guess.value
 
   if (isValidGuess(guess)) {
-    // console.log(randomAnswer.indexOf(guess)) // what we're using to decide if it is right or wrong -1 means wrong
 
     if (randomAnswer.indexOf(guess) >= 0) {
       correctGuesses.push(guess); // add to the correct guesses array
-      // playSpace.textContent = correctGuesses.join(' ');
-      state.splice(randomAnswer.indexOf(guess), 1, guess);
-      console.log('Correct guesses: '+ correctGuesses) // show the array
+
+      /* state.splice(randomAnswer.indexOf(guess), 1, guess); */
+      /* original attempt - worked unless you have multiple letters that are the same! Could never figure out a proper loop. */
+
+      for (var i = 0; i < randomAnswer.length; i++) { // go through the whole word so duplicate letters work
+        if (randomAnswer[i] === guess) { // i is comparing the index and matching against the guess index
+          state[i] = guess // if they match, then the corresponding
+          console.log(state) // just keeping track of the loops for myself
+        }
+      }
+
+      console.log('Correct guesses: ' + correctGuesses) // show the array
       console.log('Index of the correct guess within answer word: ' + randomAnswer.indexOf(guess)) // this is correct, need to use that to add it to the array in the right order
       console.log(state)
-      playSpace.textContent = state
+      playSpace.textContent = state // update with the matching letters found
+      // need to check agains the random answer to see if the arrays are equal -- if they are, you win!
     } else if (randomAnswer.indexOf(guess) === -1 && triesCounter > 1) {
       resultDiv.textContent = 'Try another letter!';
       prevTries.push(guess); //add to list of letters tried
@@ -89,8 +106,9 @@ form.addEventListener('submit', function(event) {
       changeLives();
     }
   } else {
-    resultDiv.textContent = 'Input must be a letter and you must not have already guessed it!'
+    resultDiv.textContent = 'Input must be a single letter and you must not have already guessed it!'
   }
+
 
   form.guess.value = '';
 });
