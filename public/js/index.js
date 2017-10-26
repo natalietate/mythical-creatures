@@ -10,6 +10,7 @@ const playSpace = document.getElementById('play-space');
 // Game Data //
 let answer = ['mermaid', 'bigfoot', 'unicorn', 'dragon', 'centaur', 'wizard']
 let hints = ['Lives in water has no feet', 'has large feet', 'one horn', 'breathes fire', 'half man', 'uses a wand']
+
 let guesses, triesCounter, prevTries, hint, correctGuesses
 // i = 0
 
@@ -24,7 +25,7 @@ function startGame() {
   console.log(state)
   correctGuesses = [];
   playSpace.textContent = state;
-  // hintArea.textContent = hints[i]
+  hintArea.textContent = hints[Math.floor(Math.random())]
   tries.textContent = triesCounter;
   prevTriesSpan.textContent = '';
   resultDiv.textContent = 'Pick a letter!'
@@ -36,7 +37,7 @@ function answerLines() {
 }
 
 function isValidGuess(guess) {
-  return guess && guess.length === 1 && !prevTries.includes(guess); // consider adding guess.length === 1
+  return guess && guess.length === 1 && !prevTries.includes(guess);
 }
 
 function changeLives() {
@@ -45,30 +46,13 @@ function changeLives() {
   prevTriesSpan.textContent = prevTries.join(', ');
 }
 
-function checkWin(randomAnswer, state) {
-  for (var i = 0, len = randomAnswer.length; i < len; i++) {
-    if (randomAnswer[i] !== state[i]){
-      console.log(false)
-    }
+function checkWin(state) {
+  if (state.includes('_')) {
+    console.log('not yet')
+  } else {
+    alert('you win')
   }
 }
-
-// Look at while loop  -> while the index of the guess is greater than or equal to zero,
-//go through and compare it to the index of the state. when it matches, stop
-// While loop -> define your variable outside of the loop - while x = 0 (and it’ll change immediately)
-// Could swap your state array with your answer array
-
-// i = 0
-// compare randomAnswer.indexOf(guess) to state.indexOf(i)
-// do they match?
-//   Yes, STOP
-//   No, i++ and try again
-// Compare again until a match is found
-
-
-// Once match is found - need to SWITCH the value of randomAnswer.indexOf(guess) with the corresponding state.indexOf(i)
-// you could SPLICE
-// to splice: index of your guess, one element, and your guess itself
 
 
 // Event Listener aka ~THE GAME~
@@ -94,8 +78,11 @@ form.addEventListener('submit', function(event) {
       console.log('Correct guesses: ' + correctGuesses) // show the array
       console.log('Index of the correct guess within answer word: ' + randomAnswer.indexOf(guess)) // this is correct, need to use that to add it to the array in the right order
       console.log(state)
-      playSpace.textContent = state // update with the matching letters found
+      playSpace.textContent = state.join(' ') // update with the matching letters found
+      checkWin(state)
+
       // need to check agains the random answer to see if the arrays are equal -- if they are, you win!
+
     } else if (randomAnswer.indexOf(guess) === -1 && triesCounter > 1) {
       resultDiv.textContent = 'Try another letter!';
       prevTries.push(guess); //add to list of letters tried
@@ -108,7 +95,6 @@ form.addEventListener('submit', function(event) {
   } else {
     resultDiv.textContent = 'Input must be a single letter and you must not have already guessed it!'
   }
-
 
   form.guess.value = '';
 });
