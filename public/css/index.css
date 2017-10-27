@@ -57,8 +57,16 @@ input {
   display: none;
 }
 
-#hint {}
+#hint {
+  Font-Family: 'PT Sans', Sans-Serif;
+}
 
+#feedback {
+}
+
+#guesses, #letters-guessed {
+  font-size: 1.5em;
+}
 /* Modal Styling */
 
 .modal {
@@ -98,7 +106,7 @@ a.close {
   display: block;
   float: right;
   font-size: 1.5em;
-  color: #A3ABBB;
+  color: white;
   padding-right: 10px;
   padding-top: 5px;
   text-decoration: none;
@@ -109,13 +117,13 @@ a.close:hover, a.play-again:hover {
 }
 
 a.play-again {
+  padding-top: 5px;
   font-size: 1em;
   color: white;
   text-decoration: none;
   display: flex;
   justify-content: center;
   Font-Family: 'PT Sans', Sans-Serif;
-
 }
 
 /*Animation of Modal*/
@@ -133,4 +141,18 @@ a.play-again {
 
 .modal-box {
   animation: slideup 1s ease-out;
+}
+
+/* Media Queries */
+
+@media screen and (max-width: 768px) {
+  #play-space {
+    font-size: 3em;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #play-space {
+    font-size: 2em;
+  }
 }

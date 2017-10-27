@@ -4,16 +4,16 @@
 const form = document.forms[0];
 const tries = document.getElementById('tries');
 const prevTriesSpan = document.getElementById('letters-guessed');
-const resultDiv = document.getElementById('result');
+const feedbackDiv = document.getElementById('feedback');
 const restartBtn = document.getElementById('restart');
 const hintArea = document.getElementById('hint');
 const playSpace = document.getElementById('play-space');
 const modal = document.querySelector('.modal');
 const close = document.querySelector('.close');
-const playAgain = document.querySelector('.play-again')
+const playAgain = document.querySelector('.play-again');
 
 hintArea.addEventListener('click', function() {
-  hintArea.textContent = hint;
+  hintArea.textContent = 'Hint: ' + hint;
 });
 restartBtn.addEventListener('click', startGame);
 
@@ -31,7 +31,7 @@ function chooseAnswer() {
   randomAnswer = answer[pickNum].split('');
   hint = hints[pickNum];
   state = [...randomAnswer].fill(' _ ');
-  resultDiv.textContent = '';
+  feedbackDiv.textContent = '';
   console.log(randomAnswer);
   console.log(state);
 }
@@ -97,19 +97,19 @@ form.addEventListener('submit', function(event) {
       checkWin(state); // was this the last guess needed for a win?
 
     } else if (randomAnswer.indexOf(guess) === -1 && guessesLeft > 1) {
-      resultDiv.textContent = 'Try another letter!';
+      feedbackDiv.textContent = 'Try another letter!';
       prevTries.push(guess); //add to list of letters tried
       // console.log(prevTries);
       changeLives();
     } else if (randomAnswer.indexOf(guess) === -1 && guessesLeft === 1) {
       changeLives();
-      resultDiv.textContent = 'Oh no, you lost!';
+      feedbackDiv.innerHTML = `<h1>Oh no, you lost!</h1>`;
       setTimeout(function() {
         startGame();
-      }, 2000);
+      }, 4000);
     }
   } else {
-    resultDiv.textContent = 'Please guess something else. Your guess must be a single letter that you have not previously tried.';
+    feedbackDiv.textContent = 'Please guess something else. Your guess must be a single letter that you have not previously tried.';
   }
   form.guess.value = '';
 });
