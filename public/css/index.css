@@ -2,11 +2,12 @@
   box-sizing: border-box;
   margin: 0;
   /*background-color: rgba(0, 0, 0, 0.1);*/
-  color: white;
+  /*color: white;*/
 }
 
 body {
   Font-Family: 'Roboto Slab', Serif;
+  color: white;
 }
 
 #background {
@@ -27,7 +28,7 @@ h1 {
 .container {
   margin: 0 auto;
   text-align: center;
-  padding: 150px 50px 150px 50px;
+  padding: 120px 50px 120px 50px;
 }
 
 #play-space {
@@ -56,9 +57,7 @@ input {
   display: none;
 }
 
-#hint {
-
-}
+#hint {}
 
 /* Modal Styling */
 
@@ -76,27 +75,13 @@ input {
   /* FYI temporary values */
   width: 500px;
   height: 200px;
-  background: #8892A6;
+  background: #3C4354;
   margin: 0 auto;
   position: relative;
   top: calc(50vh - 100px);
   border-radius: 6px;
   box-shadow: 0 0 15px #333;
-  color: white;
-}
-
-a.close {
-  display: block;
-  float: right;
-  font-size: 1.5em;
-  color: white;
-  padding-right: 10px;
-  padding-top: 5px;
-  text-decoration: none;
-}
-
-a.close:hover {
-  color: #555;
+  color: #ABAFC2;
 }
 
 #modal-title {
@@ -109,19 +94,43 @@ a.close:hover {
   padding: 10px 15px 10px 15px;
 }
 
+a.close {
+  display: block;
+  float: right;
+  font-size: 1.5em;
+  color: #A3ABBB;
+  padding-right: 10px;
+  padding-top: 5px;
+  text-decoration: none;
+}
+
+a.close:hover, a.play-again:hover {
+  color: white;
+}
+
+a.play-again {
+  font-size: 1em;
+  color: white;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  Font-Family: 'PT Sans', Sans-Serif;
+
+}
+
 /*Animation of Modal*/
 
-/*@keyframes slideup {
+@keyframes slideup {
   0% {
     opacity: 0;
-    transform: translateX(140px)
+    transform: translateY(140px)
   }
   100% {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0);
   }
 }
 
 .modal-box {
-  animation: slideup 0.7s cubic-bezier(1, 0.95, 0.9, 0.8);
-}*/
+  animation: slideup 1s ease-out;
+}
