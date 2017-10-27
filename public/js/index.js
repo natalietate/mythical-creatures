@@ -11,8 +11,8 @@ hintArea.addEventListener('click', function(){hintArea.textContent = hint})
 restartBtn.addEventListener('click', startGame);
 
 // Game Data //
-let answer = ['mermaid', 'bigfoot', 'unicorn', 'dragon', 'centaur', 'wizard']
-let hints = ['Lives in water has no feet', 'has large feet', 'one horn', 'breathes fire', 'half man', 'uses a wand']
+let answer = ['mermaid', 'bigfoot', 'unicorn', 'dragon', 'centaur', 'wizard', 'vampire', 'werewolf', 'pegasus', 'troll', 'yeti', 'leprechaun']
+let hints = ['Lives in water has no feet', 'has large feet', 'one horn', 'breathes fire', 'half man', 'uses a wand', 'drinks blood', 'full moon', 'winged stallion', 'lives under a bridge', 'big ape', 'four leaf clover']
 let guesses, triesCounter, prevTries, hint, correctGuesses, numberPicker
 
 // Game Logic //
@@ -20,7 +20,7 @@ function startGame() {
   triesCounter = 5;
   prevTries = [];
 
-// This is where we select the answer and corresponding hint!
+  // This is where we select the answer and corresponding hint! For every game
   numberPicker = Math.floor(Math.random() * answer.length)
   randomAnswer = answer[numberPicker].split('')
   hint = hints[numberPicker]
@@ -57,7 +57,6 @@ function checkWin(state) {
     alert('you win')
   }
 }
-
 
 // Event Listener aka ~THE GAME~
 form.addEventListener('submit', function(event) {
@@ -101,6 +100,5 @@ form.addEventListener('submit', function(event) {
 
   form.guess.value = '';
 });
-
 
 startGame();
