@@ -3,17 +3,18 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>js-capstone-game</title>
+    <title>Mythical Hangman</title>
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/index.css">
   </head>
 
   <body>
     <div class="container">
-      <h1>Guess a letter</h1>
+      <h1>Think you know your mythical creatures?</h1>
+      <h2>Guess a letter...</h2>
       <br>
       <br>
-      <p><span id="play-space"> Correct letters go here</span></p>
+      <p><span id="play-space"></span></p>
       <br><br>
       <div class="form-box">
         <form>
@@ -23,15 +24,16 @@
         </form>
       </div>
       <br><br>
-      <p>Guesses remaining: <span id="tries">5</span></p>
+      <p>Guesses Remaining: <span id="tries"></span></p>
       <br>
-      <p>Incorrect Letters Guessed:</p>
-      <p><span id="letters-guessed">0</span></p><br>
-      <p><span id="hint"> <button>I NEED A HINT</button> </span></p>
+      <p><span id="hint"> <button>Hint, please!</button> </span></p>
+      <br>
+      <p>Letters Guessed:</p>
+      <p><span id="letters-guessed"></span></p><br>
       <br>
       <div id="result">
       </div>
-      <button class="hidden" id="restart">Restart</button>
+      <button class="hidden" id="restart">Play Again</button>
     </div>
     <!-- JavaScripts -->
     <script src="js/index.js"></script>

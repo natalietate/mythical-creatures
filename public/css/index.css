@@ -18,12 +18,15 @@
     text-align: center;
   }
 
+  #play-space {
+    font-size: 6em;
+  }
+
   .form-box {
     border: 1px solid black;
-    width: 50%;
+    width: 30%;
     margin: 0 auto;
     padding: 20px;
-    padding-bottom: 25px;
   }
 
   .hidden {
