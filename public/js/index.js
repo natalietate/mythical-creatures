@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 // HTML Elements //
 const form = document.forms[0];
 const tries = document.getElementById('tries');
@@ -7,61 +9,59 @@ const restartBtn = document.getElementById('restart');
 const hintArea = document.getElementById('hint');
 const playSpace = document.getElementById('play-space');
 
-hintArea.addEventListener('click', function(){hintArea.textContent = hint})
+hintArea.addEventListener('click', function() {
+  hintArea.textContent = hint;
+});
 restartBtn.addEventListener('click', startGame);
 
 // Game Data //
-let answer = ['mermaid', 'bigfoot', 'unicorn', 'dragon', 'centaur', 'wizard', 'vampire', 'werewolf', 'pegasus', 'troll', 'yeti', 'leprechaun']
-let hints = ['Lives in water has no feet', 'has large feet', 'one horn', 'breathes fire', 'half man', 'uses a wand', 'drinks blood', 'full moon', 'winged stallion', 'lives under a bridge', 'big ape', 'four leaf clover']
-let guesses, triesCounter, prevTries, hint, correctGuesses, numberPicker
+const answer = ['mermaid', 'bigfoot', 'unicorn', 'dragon', 'centaur', 'wizard', 'vampire', 'werewolf', 'pegasus', 'troll', 'yeti', 'leprechaun'];
+const hints = ['Lives in water has no feet', 'has large feet', 'one horn', 'breathes fire', 'half man', 'uses a wand', 'drinks blood', 'full moon', 'winged stallion', 'lives under a bridge', 'big ape', 'four leaf clover'];
+let guesses, guessesLeft, prevTries, hint, correctGuesses, numberPicker;
 
 // Game Logic //
+
 function startGame() {
-  triesCounter = 5;
+  guessesLeft = 5;
   prevTries = [];
-
-  // This is where we select the answer and corresponding hint! For every game
-  numberPicker = Math.floor(Math.random() * answer.length)
-  randomAnswer = answer[numberPicker].split('')
-  hint = hints[numberPicker]
-
-  console.log(randomAnswer)
-  state = [].concat(randomAnswer).fill('_');
-  console.log(state)
   correctGuesses = [];
-  playSpace.textContent = state;
-  tries.textContent = triesCounter;
-  prevTriesSpan.textContent = '';
-  resultDiv.textContent = 'Pick a letter!'
-}
 
-function answerLines() {
-  console.log(randomAnswer.length)
-  playSpace.textContent = randomAnswer.length
+  // Select the answer and corresponding hint for each game
+  numberPicker = Math.floor(Math.random() * answer.length);
+  randomAnswer = answer[numberPicker].split('');
+  hint = hints[numberPicker];
+  state = [...randomAnswer].fill(' _ ');
+
+  playSpace.textContent = state;
+  tries.textContent = guessesLeft;
+  prevTriesSpan.textContent = '';
+  console.log(answer[numberPicker]); // in case you want to cheat
 }
 
 function isValidGuess(guess) {
   return guess && guess.length === 1 && !prevTries.includes(guess);
+  //  NEED TO ADD CHECK CAPITALIZATION AND CHECK THAT IT'S A LETTER
 }
 
 function changeLives() {
-  triesCounter--;
-  tries.textContent = triesCounter;
+  guessesLeft--;
+  tries.textContent = guessesLeft;
   prevTriesSpan.textContent = prevTries.join(', ');
 }
 
 function checkWin(state) {
-  if (state.includes('_')) {
-    console.log('not yet')
+  if (state.includes(' _ ')) {
+    console.log('not yet');
   } else {
-    alert('you win')
+    alert('you win');
+    restartBtn.classList.remove('hidden');
   }
 }
 
 // Event Listener aka ~THE GAME~
 form.addEventListener('submit', function(event) {
   event.preventDefault();
-  const guess = form.guess.value
+  const guess = form.guess.value;
 
   if (isValidGuess(guess)) {
 
@@ -71,33 +71,33 @@ form.addEventListener('submit', function(event) {
       /* state.splice(randomAnswer.indexOf(guess), 1, guess); */
       /* original attempt - worked unless you have multiple letters that are the same! Could never figure out a proper loop. */
 
-      for (var i = 0; i < randomAnswer.length; i++) { // go through the whole word so duplicate letters work
+      for (let i = 0; i < randomAnswer.length; i++) { // goes through the whole word so duplicate letters work
         if (randomAnswer[i] === guess) { // i is comparing the index and matching against the guess index
-          state[i] = guess // if they match, then the corresponding
-          console.log(state) // just keeping track of the loops for myself
+          state[i] = guess; // if they match, then replace the same state index with the guess
+          console.log(state); // just keeping track of the loops for myself
         }
       }
 
-      console.log('Correct guesses: ' + correctGuesses) // show the array
-      console.log('Index of the correct guess within answer word: ' + randomAnswer.indexOf(guess)) // this is correct, need to use that to add it to the array in the right order
-      console.log(state)
-      playSpace.textContent = state.join(' ') // update with the matching letters found
-      checkWin(state)
+      console.log('Correct guesses: ' + correctGuesses); // show the array
+      console.log('Index of the correct guess within answer word: ' + randomAnswer.indexOf(guess)); // this is correct, need to use that to add it to the array in the right order
+      console.log(state);
 
-    } else if (randomAnswer.indexOf(guess) === -1 && triesCounter > 1) {
+      playSpace.textContent = state.join(' '); // update with the matching letters found
+      checkWin(state); // was this the last guess needed for a win?
+
+    } else if (randomAnswer.indexOf(guess) === -1 && guessesLeft > 1) {
       resultDiv.textContent = 'Try another letter!';
       prevTries.push(guess); //add to list of letters tried
       console.log(prevTries);
       changeLives();
-    } else if (randomAnswer.indexOf(guess) === -1 && triesCounter === 1) {
+    } else if (randomAnswer.indexOf(guess) === -1 && guessesLeft === 1) {
       changeLives();
-      resultDiv.textContent = 'You lose!';
+      resultDiv.textContent = 'Oh no, you lose!';
       restartBtn.classList.remove('hidden');
     }
   } else {
-    resultDiv.textContent = 'Input must be a single letter and you must not have already guessed it!'
+    resultDiv.textContent = 'Please guess something else. Your guess must be a single letter you have not previously tried.';
   }
-
   form.guess.value = '';
 });
 
