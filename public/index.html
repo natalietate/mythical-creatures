@@ -1,43 +1,62 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Mythical Hangman</title>
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/index.css">
-  </head>
 
-  <body id="background">
-    <div class="container">
-      <h1>Think you know your mythical creatures?</h1>
-      <h2>Guess a letter...</h2>
-      <br>
-      <br>
-      <p><span id="play-space"></span></p>
-      <br><br>
-      <div class="form-box">
-        <form>
-          <label>Type a letter:</label>
-          <input type="text" name="guess">
-          <input type="submit"><br>
-        </form>
-      </div>
-      <br><br>
-      <p>Guesses Remaining: <span id="tries"></span></p>
-      <br>
-      <p><span id="hint"> <button>Hint, please!</button> </span></p>
-      <br>
-      <p>Letters Guessed:</p>
-      <p><span id="letters-guessed"></span></p><br>
-      <br>
-      <div id="result">
-      </div>
-      <button class="hidden" id="restart">Play Again</button>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mythical Hangman</title>
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/index.css">
+  <link href="https://fonts.googleapis.com/css?family=PT+Sans:700%7CRoboto+Slab" rel="stylesheet">
+
+</head>
+
+<body id="background">
+  <div class="container">
+    <h1>Mythical Creature Hangman</h1>
+    <h2>Guess a letter...</h2>
+    <br>
+    <br>
+    <p><span id="play-space"></span></p>
+    <br><br>
+    <div class="form-box">
+      <form>
+        <label>Type a letter:</label>
+        <input type="text" name="guess">
+        <input type="submit"><br>
+      </form>
     </div>
-    <!-- JavaScripts -->
-    <script src="js/index.js"></script>
-  </body>
+    <br><br>
+    <div id="result"></div>
+    <p>Guesses Remaining: <span id="tries"></span></p>
+    <br>
+    <p><span id="hint"> <button>Hint, please!</button> </span></p>
+    <br>
+    <p>Letters Guessed:</p>
+    <p><span id="letters-guessed"></span></p><br>
+    <br>
+
+    <button class="hidden" id="restart">Play Again</button>
+  </div>
+
+  <!-- Winner Modal -->
+  <div class="modal hidden">
+    <div class="modal-box">
+      <header class="modal-header">
+        <a href="#" class="close">X</a>
+      </header>
+      <article class="modal-content">
+        <h1 id="modal-title">Congratulations!</h1>
+        <br>
+        <p id="modal-content">You've guessed the mythical creature! Wasn't that fun?</p>
+      </article>
+      <footer class="modal-footer"></footer>
+    </div>
+  </div>
+
+  <!-- JavaScripts -->
+  <script src="js/index.js"></script>
+</body>
 
 
 </html>

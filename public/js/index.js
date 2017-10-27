@@ -8,16 +8,26 @@ const resultDiv = document.getElementById('result');
 const restartBtn = document.getElementById('restart');
 const hintArea = document.getElementById('hint');
 const playSpace = document.getElementById('play-space');
+const modal = document.querySelector('.modal')
+const close = document.querySelector('.close')
 
 hintArea.addEventListener('click', function() {
   hintArea.textContent = hint;
 });
 restartBtn.addEventListener('click', startGame);
+close.addEventListener('click', hideModal);
+
 
 // Game Data //
 const answer = ['mermaid', 'bigfoot', 'unicorn', 'dragon', 'centaur', 'wizard', 'vampire', 'werewolf', 'pegasus', 'troll', 'yeti', 'leprechaun'];
 const hints = ['Lives in water has no feet', 'has large feet', 'one horn', 'breathes fire', 'half man', 'uses a wand', 'drinks blood', 'full moon', 'winged stallion', 'lives under a bridge', 'big ape', 'four leaf clover'];
 let guesses, guessesLeft, prevTries, hint, correctGuesses, pickNum;
+var hideModal = function() {
+  modal.classList.add('hidden');
+};
+var showModal = function() {
+  modal.classList.remove('hidden');
+};
 
 // Game Logic //
 
@@ -26,6 +36,7 @@ function chooseAnswer() {
   randomAnswer = answer[pickNum].split('');
   hint = hints[pickNum];
   state = [...randomAnswer].fill(' _ ');
+  resultDiv.textContent = '';
   console.log(randomAnswer);
   console.log(state);
 }
@@ -44,7 +55,7 @@ function checkWin(state) {
   if (state.includes(' _ ')) {
     return false;
   } else {
-    alert('you win');
+    var timeoutID = setTimeout(showModal, 800);
     restartBtn.classList.remove('hidden');
   }
 }
