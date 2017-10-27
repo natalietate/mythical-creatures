@@ -1,4 +1,5 @@
 /*jshint esversion: 6 */
+// add a closure!
 
 // HTML Elements //
 const form = document.forms[0];
@@ -19,8 +20,8 @@ restartBtn.addEventListener('click', startGame);
 
 
 // Game Data //
-const answer = ['mermaid', 'bigfoot', 'unicorn', 'dragon', 'centaur', 'wizard', 'vampire', 'werewolf', 'pegasus', 'troll', 'yeti', 'leprechaun'];
-const hints = ['Lives in water has no feet', 'has large feet', 'one horn', 'breathes fire', 'half man', 'uses a wand', 'drinks blood', 'full moon', 'winged stallion', 'lives under a bridge', 'big ape', 'four leaf clover'];
+const answer = ['mermaid', 'bigfoot', 'unicorn', 'dragon', 'centaur', 'wizard', 'vampire', 'werewolf', 'pegasus', 'troll', 'yeti'];
+const hints = ['Lives in water has no feet', 'has large feet', 'one horn', 'breathes fire', 'half man', 'uses a wand', 'drinks blood', 'full moon', 'winged stallion', 'lives under a bridge', 'big ape'];
 let guesses, guessesLeft, prevTries, hint, correctGuesses, hideModal, showModal, pickNum;
 
 
@@ -31,6 +32,7 @@ function chooseAnswer() {
   randomAnswer = answer[pickNum].split('');
   hint = hints[pickNum];
   state = [...randomAnswer].fill(' _ ');
+  displayState = [...randomAnswer].fill(' _ ').join('');
   feedbackDiv.textContent = '';
   console.log(randomAnswer);
   console.log(state);
@@ -72,7 +74,7 @@ function startGame() {
   guessesLeft = 5;
   prevTries = [];
   correctGuesses = [];
-  playSpace.textContent = state;
+  playSpace.textContent = displayState;
   tries.textContent = guessesLeft;
   prevTriesSpan.textContent = '';
 }
@@ -91,13 +93,12 @@ form.addEventListener('submit', function(event) {
           state[i] = guess; // if they match, then replace the same state index with the guess
         }
       }
-      // console.log('Correct guesses: ' + correctGuesses); // show the array of correct guesses
       console.log(state);
       playSpace.textContent = state.join(' '); // update with the matching letters found
       checkWin(state); // was this the last guess needed for a win?
 
     } else if (randomAnswer.indexOf(guess) === -1 && guessesLeft > 1) {
-      feedbackDiv.textContent = 'Try another letter!';
+      feedbackDiv.textContent = 'Try a different letter!';
       prevTries.push(guess); //add to list of letters tried
       // console.log(prevTries);
       changeLives();
