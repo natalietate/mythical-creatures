@@ -39,8 +39,7 @@ function startGame() {
 }
 
 function isValidGuess(guess) {
-  return guess && guess.length === 1 && !prevTries.includes(guess);
-  //  NEED TO ADD CHECK CAPITALIZATION AND CHECK THAT IT'S A LETTER
+  return guess && guess.length === 1 && guess.match(/[a-z]/i) && !prevTries.includes(guess);
 }
 
 function changeLives() {
@@ -51,7 +50,7 @@ function changeLives() {
 
 function checkWin(state) {
   if (state.includes(' _ ')) {
-    console.log('not yet');
+    return false;
   } else {
     alert('you win');
     restartBtn.classList.remove('hidden');
@@ -67,28 +66,20 @@ form.addEventListener('submit', function(event) {
 
     if (randomAnswer.indexOf(guess) >= 0) {
       correctGuesses.push(guess); // add to the correct guesses array
-
-      /* state.splice(randomAnswer.indexOf(guess), 1, guess); */
-      /* original attempt - worked unless you have multiple letters that are the same! Could never figure out a proper loop. */
-
       for (let i = 0; i < randomAnswer.length; i++) { // goes through the whole word so duplicate letters work
         if (randomAnswer[i] === guess) { // i is comparing the index and matching against the guess index
           state[i] = guess; // if they match, then replace the same state index with the guess
-          console.log(state); // just keeping track of the loops for myself
         }
       }
-
-      console.log('Correct guesses: ' + correctGuesses); // show the array
-      console.log('Index of the correct guess within answer word: ' + randomAnswer.indexOf(guess)); // this is correct, need to use that to add it to the array in the right order
-      console.log(state);
-
+      // console.log('Correct guesses: ' + correctGuesses); // show the array of correct guesses
+      // console.log(state);
       playSpace.textContent = state.join(' '); // update with the matching letters found
       checkWin(state); // was this the last guess needed for a win?
 
     } else if (randomAnswer.indexOf(guess) === -1 && guessesLeft > 1) {
       resultDiv.textContent = 'Try another letter!';
       prevTries.push(guess); //add to list of letters tried
-      console.log(prevTries);
+      // console.log(prevTries);
       changeLives();
     } else if (randomAnswer.indexOf(guess) === -1 && guessesLeft === 1) {
       changeLives();
