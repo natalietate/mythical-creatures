@@ -20,8 +20,8 @@ restartBtn.addEventListener('click', startGame);
 
 
 // Game Data //
-const answer = ['mermaid', 'bigfoot', 'unicorn', 'dragon', 'centaur', 'wizard', 'vampire', 'werewolf', 'pegasus', 'troll', 'yeti'];
-const hints = ['Lives in water has no feet', 'has large feet', 'one horn', 'breathes fire', 'half man', 'uses a wand', 'drinks blood', 'full moon', 'winged stallion', 'lives under a bridge', 'big ape'];
+const answer = ['mermaid', 'bigfoot', 'unicorn', 'dragon', 'centaur', 'wizard', 'werewolf', 'pegasus', 'troll', 'yeti'];
+const hints = ['She lives under the sea', 'Inhabits forests, especially in the Pacific Northwest', 'If this were a tech company, it would be worth more than $1 billion', 'Found in the sky', 'Half and half', '✨✨✨', 'Check the moon', 'Pure white, like the clouds', 'Also found in the comments section', 'Winter is his favorite season'];
 let guesses, guessesLeft, prevTries, hint, correctGuesses, hideModal, showModal, pickNum;
 
 
@@ -42,7 +42,7 @@ function isValidGuess(guess) {
   return guess && guess.length === 1 && guess.match(/[a-z]/i) && !prevTries.includes(guess);
 }
 
- changeLives = function() {
+changeLives = function() {
   guessesLeft--;
   tries.textContent = guessesLeft;
   prevTriesSpan.textContent = prevTries.join(', ');
@@ -57,20 +57,29 @@ function checkWin(state) {
     playAgain.addEventListener('click', hideModalPlay);
   }
 }
+
+function removeAnswer() {
+  answer.splice(pickNum, 1);
+  if (answer.length === 0) {
+    alert("WOW! You beat the whole game.");
+    // need to add some kind of congratulations message here - as a modal? With a new game buton
+  }
+}
 hideModal = function() {
- modal.classList.add('hidden');
+  modal.classList.add('hidden');
 };
 showModal = function() {
- modal.classList.remove('hidden');
+  modal.classList.remove('hidden');
 };
 
 hideModalPlay = function() {
- modal.classList.add('hidden');
- startGame();
+  modal.classList.add('hidden');
+  startGame();
 };
 
 function startGame() {
   chooseAnswer();
+  removeAnswer();
   guessesLeft = 5;
   prevTries = [];
   correctGuesses = [];
@@ -98,7 +107,7 @@ form.addEventListener('submit', function(event) {
       checkWin(state); // was this the last guess needed for a win?
 
     } else if (randomAnswer.indexOf(guess) === -1 && guessesLeft > 1) {
-      feedbackDiv.textContent = 'Try a different letter!';
+      feedbackDiv.textContent = 'That\'s not quite right. Try a different letter!';
       prevTries.push(guess); //add to list of letters tried
       // console.log(prevTries);
       changeLives();
@@ -110,7 +119,7 @@ form.addEventListener('submit', function(event) {
       }, 4000);
     }
   } else {
-    feedbackDiv.textContent = 'Please guess something else. Your guess must be a single letter that you have not previously tried.';
+    feedbackDiv.textContent = 'Uh oh! Please guess something else. Your guess must be a single letter that you have not previously tried.';
   }
   form.guess.value = '';
 });
