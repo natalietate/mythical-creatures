@@ -2,7 +2,6 @@
   box-sizing: border-box;
   margin: 0;
   /*background-color: rgba(0, 0, 0, 0.1);*/
-  /*color: white;*/
 }
 
 body {
@@ -17,11 +16,11 @@ body {
   -webkit-background-size: cover;
 }
 
-h1, h2, h3 {
+h1, h2, h3, #hint {
   Font-Family: 'PT Sans', Sans-Serif;
 }
 
-h1 {
+h1, #play-space {
   font-size: 4em;
 }
 
@@ -29,10 +28,6 @@ h1 {
   margin: 0 auto;
   text-align: center;
   padding: 120px 50px 120px 50px;
-}
-
-#play-space {
-  font-size: 4em;
 }
 
 .form-box {
@@ -53,22 +48,15 @@ input {
   color: #21222F;
 }
 
+#guesses, #letters-guessed {
+  font-size: 1.5em;
+}
+
 .hidden {
   display: none;
 }
 
-#hint {
-  Font-Family: 'PT Sans', Sans-Serif;
-}
-
-#feedback {
-}
-
-#guesses, #letters-guessed {
-  font-size: 1.5em;
-}
-/* Modal Styling */
-
+/* Winner Modal Styling */
 .modal {
   background: rgba(0, 0, 0, 0.7);
   position: absolute;
@@ -80,7 +68,6 @@ input {
 }
 
 .modal-box {
-  /* FYI temporary values */
   width: 500px;
   height: 250px;
   background: #3C4354;
@@ -127,7 +114,6 @@ a.play-again {
 }
 
 /*Animation of Modal*/
-
 @keyframes slideup {
   0% {
     opacity: 0;
@@ -144,7 +130,6 @@ a.play-again {
 }
 
 /* Media Queries */
-
 @media screen and (max-width: 768px) {
   #play-space {
     font-size: 3em;
