@@ -46,6 +46,10 @@
     }
   }
 
+  function removeHint() {
+    hints.splice(pickNum, 1);
+  }
+
   // Used to ensure guess is a unique letter
   function isValidGuess(guess) {
     return guess && guess.length === 1 && guess.match(/[a-z]/) && !prevTries.includes(guess);
@@ -87,6 +91,7 @@
   function startGame() {
     chooseAnswer();
     removeAnswer();
+    removeHint();
     guessesLeft = 5;
     prevTries = [];
     hintArea.innerHTML = `<button>Hint, please!</button>`;
@@ -123,7 +128,7 @@
         feedbackDiv.innerHTML = `<h1>Oh no, you lost!</h1>`;
         setTimeout(function() {
           startGame();
-        }, 4000);
+        }, 4500);
       }
     } else {
       feedbackDiv.textContent = 'Uh oh! Please guess something else. Your guess must be a single lowercase letter that you have not previously tried.';
