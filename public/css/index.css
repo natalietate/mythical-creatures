@@ -60,7 +60,7 @@ input {
   position: absolute;
   top: 0;
   left: 0;
-  height: 100vh;
+  height: 125vh;
   width: 100vw;
   overflow: scroll;
 }
@@ -97,14 +97,13 @@ a.close {
   text-decoration: none;
 }
 
-a.close:hover, a.play-again:hover {
+a.close:hover, a.play-again, a.play-again:hover {
   color: white;
 }
 
 a.play-again {
   padding-top: 5px;
   font-size: 1em;
-  color: white;
   text-decoration: none;
   display: flex;
   justify-content: center;
@@ -112,7 +111,7 @@ a.play-again {
 }
 
 /*Animation of Modal*/
-@keyframes slideup {
+@keyframes slideUp {
   0% {
     opacity: 0;
     transform: translateY(140px)
@@ -124,7 +123,7 @@ a.play-again {
 }
 
 .modal-box {
-  animation: slideup 1s ease-out;
+  animation: slideUp 1s ease-out;
 }
 
 /* Page Load Animation */
@@ -139,7 +138,7 @@ a.play-again {
 
 .fade-in {
   opacity: 0;
-  animation: fadeIn ease-in 1;
+  animation: fadeIn 1s ease-in;
   animation-fill-mode: forwards;
   animation-duration: 1s;
 }
