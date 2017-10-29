@@ -12,8 +12,6 @@ body {
 #background {
   background: url('../img/ales-krivec.jpg') no-repeat 50% 50% fixed;
   background-size: cover;
-  -moz-background-size: cover;
-  -webkit-background-size: cover;
 }
 
 h1, h2, h3, #hint {
@@ -127,6 +125,27 @@ a.play-again {
 
 .modal-box {
   animation: slideup 1s ease-out;
+}
+
+/* Page Load Animation */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn ease-in 1;
+  animation-fill-mode: forwards;
+  animation-duration: 1s;
+}
+
+.fade-in {
+  animation-delay: 1s;
 }
 
 /* Media Queries */
