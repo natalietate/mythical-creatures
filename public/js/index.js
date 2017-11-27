@@ -103,7 +103,8 @@
   // The Game
   form.addEventListener('submit', function(event) {
     event.preventDefault();
-    const guess = form.guess.value;
+    const guess = form.guess.value.toLowerCase();
+
     if (isValidGuess(guess)) {
       if (randomAnswer.indexOf(guess) >= 0) {
         for (let i = 0; i < randomAnswer.length; i++) {
@@ -131,7 +132,7 @@
         }, 4500);
       }
     } else {
-      feedbackDiv.textContent = 'Uh oh! Please guess something else. Your guess must be a single lowercase letter that you have not previously tried.';
+      feedbackDiv.textContent = 'Uh oh! Please guess something else. Your guess must be a single letter that you have not previously tried.';
     }
     form.guess.value = '';
   });
