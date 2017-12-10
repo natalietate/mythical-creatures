@@ -9,4 +9,4 @@
 * A hint button is available in case the challenge word is a little too tricky.
 * Play up to 10 rounds!
 
-[Try it yourself](natalietate.github.io/mythical-creatures/)
+[Try it yourself](https://natalietate.github.io/mythical-creatures/)
